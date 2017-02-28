@@ -1,0 +1,38 @@
+.page-header {
+    padding: 5px 5px 5px 7%;
+    font-size: 30px;
+}
+
+.main-menu {
+    padding: 5px 5px 5px 7%;
+    font-size: 25px;
+    font-style: italic;
+}
+
+.mail-menu ul li {
+    font-style: normal;
+}
+
+.game-field {
+    margin: 5%;
+    /*border: 1px solid black;*/
+    border-collapse: collapse;
+}
+
+.game-field-line {
+    /*border: 1px solid black;*/
+}
+
+.field-cell-white {
+    background-color: white;
+    border: 2px solid grey;
+    width: 20px;
+    height: 20px;
+}
+
+.field-cell-black {
+    background-color: black;
+    border: 2px solid grey;
+    width: 20px;
+    height: 20px;
+}
