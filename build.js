@@ -63,11 +63,100 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+const countLiveNeighbors = (field, x, y) => {
+  const range = [-1, 0, 1];
+  const neighbors = range.map(dy => range.map((dx) => {
+    if (dx === 0 && dy === 0) {
+      return undefined;
+    }
+    return field[y + dy] && field[y + dy][x + dx];
+  }));
+  return [].concat(...neighbors).filter(item => item).length;
+};
+/* unused harmony export countLiveNeighbors */
+
+
+const step = (field) => {
+  const changeCell = (cell, x, y) => {
+    const liveNeighbors = countLiveNeighbors(field, x, y);
+    const mustDie = (liveNeighbors < 2) || (liveNeighbors > 3);
+    const spawning = !cell && (liveNeighbors === 3);
+    return spawning || (cell && !mustDie);
+  };
+  return field.map((line, y) => line.map((cell, x) => changeCell(cell, x, y)));
+};
+/* unused harmony export step */
+
+
+
+class GameOfLife {
+  constructor(state, containerId) {
+    this.state = state;
+    this.speed = 800;
+    this.containerId = containerId;
+    this.pause = false;
+    this.intervalId = setInterval(this.createField.bind(this), this.speed);
+  }
+  createField() {
+    this.setState(step(this.state));
+  }
+
+  speedUp() {
+    clearInterval(this.intervalId);
+    this.speed = this.speed <= 150 ? this.speed : this.speed - 100;
+    this.intervalId = setInterval(this.createField.bind(this), this.speed);
+  }
+
+  speedDown() {
+    clearInterval(this.intervalId);
+    this.speed = this.speed + 100;
+    this.intervalId = setInterval(this.createField.bind(this), this.speed);
+  }
+
+  pauseGame() {
+    if (this.pause) {
+      this.intervalId = setInterval(this.createField.bind(this), this.speed);
+    } else {
+      clearInterval(this.intervalId);
+    }
+    this.pause = !this.pause;
+  }
+
+  setState(state) {
+    this.state = state;
+    this.render();
+  }
+
+  render() {
+    const gameFieldContainer = document.getElementById(this.containerId);
+    gameFieldContainer.innerHTML = '';
+    const newTable = document.createElement('table');
+    newTable.className = 'game-field';
+    gameFieldContainer.appendChild(newTable);
+    this.state.forEach((line) => {
+      const curRow = newTable.insertRow();
+      line.forEach((elem) => {
+        const curCell = curRow.insertCell();
+        curCell.className = elem ? 'field-cell-black' : 'field-cell-white';
+      });
+    });
+  }
+
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = GameOfLife;
+
+
+
+/***/ }),
+/* 1 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -85,7 +174,7 @@ const makeBlinker = () => {
     '.....'];
   return parseField(field);
 };
-/* unused harmony export makeBlinker */
+/* harmony export (immutable) */ __webpack_exports__["b"] = makeBlinker;
 
 
 const makePulsar = () => {
@@ -109,7 +198,7 @@ const makePulsar = () => {
     '.................'];
   return parseField(field);
 };
-/* unused harmony export makePulsar */
+/* harmony export (immutable) */ __webpack_exports__["a"] = makePulsar;
 
 
 const makeGosperGliderGun = () => {
@@ -139,45 +228,7 @@ const makeGosperGliderGun = () => {
     '......................................'];
   return parseField(field);
 };
-/* harmony export (immutable) */ __webpack_exports__["a"] = makeGosperGliderGun;
-
-
-
-/***/ }),
-/* 1 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-const collectCells = (field, x, y) => {
-  if (x >= field[0].length || y >= field.length) {
-    return [];
-  }
-  return field.reduce((acc, line, curY) =>
-  line.reduce((curAcc, cell, curX) => {
-    if (curX === x && curY === y) {
-      return acc;
-    } else if ((curX <= x + 1 && curX >= x - 1) && (curY <= y + 1 && curY >= y - 1)) {
-      acc.push(cell);
-      return acc;
-    }
-    return acc;
-  }, acc), []);
-};
-/* unused harmony export collectCells */
-
-
-
-const step = (field) => {
-  const changeCell = (cell, x, y) => {
-    const liveNeighbors = collectCells(field, x, y).filter(item => item).length;
-    const mustDie = (liveNeighbors < 2) || (liveNeighbors > 3);
-    const spawning = !cell && (liveNeighbors === 3);
-    return spawning || (cell && !mustDie);
-  };
-  const newField = field.map((line, y) => line.map((cell, x) => changeCell(cell, x, y)));
-  return newField;
-};
-/* harmony export (immutable) */ __webpack_exports__["a"] = step;
+/* harmony export (immutable) */ __webpack_exports__["c"] = makeGosperGliderGun;
 
 
 
@@ -186,54 +237,22 @@ const step = (field) => {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = (array, id) => {
-  document.getElementById(id).innerHTML = '';
-  const newTable = document.createElement('table');
-  newTable.className = 'game-field';
-  const gameFieldContainer = document.getElementById(id);
-  gameFieldContainer.appendChild(newTable);
-  for (let i = 0; i < array.length; i++) {
-    const line = array[i];
-    const curRow = newTable.insertRow(i);
-    for (let j = 0; j < line.length; j++) {
-      const curCell = curRow.insertCell(j);
-      if (line[j]) {
-        curCell.className = 'field-cell-black';
-      } else {
-        curCell.className = 'field-cell-white';
-      }
-    }
-  }
-};
-
-
-/***/ }),
-/* 3 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__createField__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__gameOfLife__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__render__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__libraryFigures__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__gameOfLife__ = __webpack_require__(0);
 
 
 
 
-
-const main = () => {
-  const startField = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__createField__["a" /* makeGosperGliderGun */])();
-
-  const updateField = (field) => {
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__render__["a" /* default */])(field, 'game-field-container');
-    const newField = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__gameOfLife__["a" /* step */])(field);
-
-    setTimeout(updateField, 50, newField);
-  };
-  setTimeout(updateField, 50, startField);
+window.onload = () => {
+  const game = new __WEBPACK_IMPORTED_MODULE_1__gameOfLife__["a" /* GameOfLife */](__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__libraryFigures__["a" /* makePulsar */])(), 'game-field-container');
+  document.getElementById('blinker').onclick = game.setState.bind(game, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__libraryFigures__["b" /* makeBlinker */])());
+  document.getElementById('pulsar').onclick = game.setState.bind(game, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__libraryFigures__["a" /* makePulsar */])());
+  document.getElementById('glider-gun').onclick = game.setState.bind(game, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__libraryFigures__["c" /* makeGosperGliderGun */])());
+  document.getElementById('speedUp').onclick = game.speedUp.bind(game);
+  document.getElementById('speedDown').onclick = game.speedDown.bind(game);
+  document.getElementById('pause').onclick = game.pauseGame.bind(game);
 };
-
-window.onload = main;
 
 
 /***/ })
