@@ -1,3 +1,30 @@
+.clearfix:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+}
+
+.clearfix {
+    display: inline-block;
+}
+
+
+/* start commented backslash hack \*/
+
+* html .clearfix {
+    height: 1%;
+}
+
+.clearfix {
+    display: block;
+}
+
+
+/* close commented backslash hack */
+
 .page-header {
     padding: 5px 5px 5px 7%;
     font-size: 30px;
@@ -6,28 +33,68 @@
 .main-menu {
     padding: 5px 5px 5px 7%;
     font-size: 25px;
-    font-style: italic;
 }
 
-.mail-menu ul li {
-    font-style: normal;
+.examples {
+    width: 90%;
+    margin-top: 30px;
 }
 
-.game-field {
-    margin: 5%;
+#game-field-container {
+    width: 65%;
+    float: right;
+    margin-top: 15px;
+}
+
+.blinker, .pulsar, .glider-gun {
     border-collapse: collapse;
 }
 
-.field-cell-white {
-    background-color: white;
+.blinker td, .pulsar td, .glider-gun td {
     border: 2px solid grey;
-    width: 20px;
-    height: 20px;
 }
 
-.field-cell-black {
+.blinker td {
+    width: 95px;
+    height: 95px;
+}
+
+.pulsar td {
+    width: 25px;
+    height: 25px;
+}
+
+.glider-gun td {
+    width: 17px;
+    height: 17px;
+}
+
+.cell-white {
+    background-color: white;
+}
+
+.cell-black {
     background-color: black;
-    border: 2px solid grey;
-    width: 20px;
-    height: 20px;
+}
+
+#control {
+    width: 20%;
+    float: left;
+}
+
+#control li {
+    list-style-type: none;
+}
+
+.button {
+    margin: 10px;
+    width: 250px;
+    height: 60px;
+    font-size: 30px;
+}
+
+#footer {
+    padding-bottom: 20px;
+    padding-top: 20px;
+    text-align: center;
 }

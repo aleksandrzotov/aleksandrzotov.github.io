@@ -100,10 +100,10 @@ const step = (field) => {
 class GameOfLife {
   constructor(state, containerId) {
     this.state = state;
-    this.speed = 800;
+    this.interval = 800;
     this.containerId = containerId;
     this.pause = false;
-    this.intervalId = setInterval(this.createField.bind(this), this.speed);
+    this.intervalId = setInterval(this.createField.bind(this), this.interval);
   }
   createField() {
     this.setState(step(this.state));
@@ -111,19 +111,19 @@ class GameOfLife {
 
   speedUp() {
     clearInterval(this.intervalId);
-    this.speed = this.speed <= 150 ? this.speed : this.speed - 100;
-    this.intervalId = setInterval(this.createField.bind(this), this.speed);
+    this.interval = this.interval <= 150 ? this.interval : this.interval - 100;
+    this.intervalId = setInterval(this.createField.bind(this), this.interval);
   }
 
   speedDown() {
     clearInterval(this.intervalId);
-    this.speed = this.speed + 100;
-    this.intervalId = setInterval(this.createField.bind(this), this.speed);
+    this.interval = this.interval + 100;
+    this.intervalId = setInterval(this.createField.bind(this), this.interval);
   }
 
   pauseGame() {
     if (this.pause) {
-      this.intervalId = setInterval(this.createField.bind(this), this.speed);
+      this.intervalId = setInterval(this.createField.bind(this), this.interval);
     } else {
       clearInterval(this.intervalId);
     }
@@ -139,13 +139,23 @@ class GameOfLife {
     const gameFieldContainer = document.getElementById(this.containerId);
     gameFieldContainer.innerHTML = '';
     const newTable = document.createElement('table');
-    newTable.className = 'game-field';
+    switch (this.state.length) {
+      case 5:
+        newTable.className = 'blinker';
+        break;
+      case 17:
+        newTable.className = 'pulsar';
+        break;
+      case 24:
+        newTable.className = 'glider-gun';
+        break;
+    }
     gameFieldContainer.appendChild(newTable);
     this.state.forEach((line) => {
       const curRow = newTable.insertRow();
       line.forEach((elem) => {
         const curCell = curRow.insertCell();
-        curCell.className = elem ? 'field-cell-black' : 'field-cell-white';
+        curCell.className = elem ? 'cell-black' : 'cell-white';
       });
     });
   }
@@ -213,6 +223,7 @@ const makeGosperGliderGun = () => {
     '...........#.....#.......#............',
     '............#...#.....................',
     '.............##.......................',
+    '......................................',
     '......................................',
     '......................................',
     '......................................',
