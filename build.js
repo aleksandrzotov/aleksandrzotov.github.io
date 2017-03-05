@@ -159,7 +159,6 @@ class GameOfLife {
       });
     });
   }
-
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = GameOfLife;
 
