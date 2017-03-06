@@ -68,23 +68,15 @@
     display: inline-block;
 }
 
-.blinker, .pulsar, .glider-gun {
+.table {
     border-collapse: collapse;
     table-layout: fixed;
     margin: auto;
-}
-
-.blinker, .pulsar {
     width: 20vw;
     height: 20vw;
 }
 
-.glider-gun {
-    width: 30.83333vw;
-    height: 20vw;
-}
-
-.blinker td, .pulsar td, .glider-gun td {
+.table td {
     border: 1px solid grey;
 }
 

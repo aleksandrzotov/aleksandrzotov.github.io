@@ -88,8 +88,8 @@ const step = (field) => {
   const changeCell = (cell, x, y) => {
     const liveNeighbors = countLiveNeighbors(field, x, y);
     const mustDie = (liveNeighbors < 2) || (liveNeighbors > 3);
-    const spawning = !cell && (liveNeighbors === 3);
-    return spawning || (cell && !mustDie);
+    const canSpawning = liveNeighbors === 3;
+    return (!cell && canSpawning) || (cell && !mustDie);
   };
   return field.map((line, y) => line.map((cell, x) => changeCell(cell, x, y)));
 };
@@ -139,17 +139,7 @@ class GameOfLife {
     const gameFieldContainer = document.getElementById(this.containerId);
     gameFieldContainer.innerHTML = '';
     const newTable = document.createElement('table');
-    switch (this.state.length) {
-      case 5:
-        newTable.className = 'blinker';
-        break;
-      case 17:
-        newTable.className = 'pulsar';
-        break;
-      case 24:
-        newTable.className = 'glider-gun';
-        break;
-    }
+    newTable.className = 'table';
     gameFieldContainer.appendChild(newTable);
     this.state.forEach((line) => {
       const curRow = newTable.insertRow();
@@ -213,6 +203,13 @@ const makePulsar = () => {
 const makeGosperGliderGun = () => {
   const field = [
     '......................................',
+    '......................................',
+    '......................................',
+    '......................................',
+    '......................................',
+    '......................................',
+    '......................................',
+    '......................................',
     '.........................#............',
     '.......................#.#............',
     '.............##......##............##.',
@@ -222,6 +219,13 @@ const makeGosperGliderGun = () => {
     '...........#.....#.......#............',
     '............#...#.....................',
     '.............##.......................',
+    '......................................',
+    '......................................',
+    '......................................',
+    '......................................',
+    '......................................',
+    '......................................',
+    '......................................',
     '......................................',
     '......................................',
     '......................................',
