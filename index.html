@@ -4,13 +4,14 @@
         <meta charset="utf-8">
         <title>Game of life</title>
         <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" href="./font-awesome/css/font-awesome.min.css">
         <script src="build.js"></script>
     </head>
     <body>
-        <header id="top-page" class="page-header">
+        <header class="page-header">
             <h1>Game of life</h1>
         </header>
-        <main class="main-menu">
+        <main class="main">
             <a href="https://github.com/aleksandrzotov"><img
                 style="position: absolute; top: 0; right: 0; border: 0;"
                 src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67"
@@ -47,26 +48,38 @@
                 </details>
             </article>
             <div class="examples clearfix">
-                <div id="game-field-container"></div>
-                <div id="control">
+                <div id="game-field">
+                    <div id="control">
+                        <ul>
+                            <li>
+                                <button type="button" id="speed-down">
+                                    <i class="fa fa-backward" aria-hidden="true"></i>
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button" id="pause">
+                                    <i class="fa fa-pause" aria-hidden="true"></i>
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button" id="speed-up">
+                                    <i class="fa fa-forward" aria-hidden="true"></i>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="game-field-container"></div>
+                </div>
+                <div id="phigures">
                     <ul>
                         <li>
-                            <input type="button" class="button" id="blinker" value="Blinker"/>
+                            <input type="button" class="button-phigures" id="blinker" value="Blinker"/>
                         </li>
                         <li>
-                            <input type="button" class="button" id="pulsar" value="Pulsar"/>
+                            <input type="button" class="button-phigures" id="pulsar" value="Pulsar"/>
                         </li>
                         <li>
-                            <input type="button" class="button" id="glider-gun" value="Glider gun"/>
-                        </li>
-                        <li>
-                            <input type="button" class="button" id="speedUp" value="SpeedUp"/>
-                        </li>
-                        <li>
-                            <input type="button" class="button" id="speedDown" value="SpeedDown"/>
-                        </li>
-                        <li>
-                            <input type="button" class="button" id="pause" value="Pause"/>
+                            <input type="button" class="button-phigures" id="glider-gun" value="Glider gun"/>
                         </li>
                     </ul>
                 </div>

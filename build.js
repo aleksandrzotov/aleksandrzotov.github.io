@@ -259,8 +259,8 @@ window.onload = () => {
   document.getElementById('blinker').onclick = game.setState.bind(game, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__libraryFigures__["b" /* makeBlinker */])());
   document.getElementById('pulsar').onclick = game.setState.bind(game, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__libraryFigures__["a" /* makePulsar */])());
   document.getElementById('glider-gun').onclick = game.setState.bind(game, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__libraryFigures__["c" /* makeGosperGliderGun */])());
-  document.getElementById('speedUp').onclick = game.speedUp.bind(game);
-  document.getElementById('speedDown').onclick = game.speedDown.bind(game);
+  document.getElementById('speed-up').onclick = game.speedUp.bind(game);
+  document.getElementById('speed-down').onclick = game.speedDown.bind(game);
   document.getElementById('pause').onclick = game.pauseGame.bind(game);
 };
 
