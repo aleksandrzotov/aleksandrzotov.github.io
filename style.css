@@ -55,7 +55,7 @@
 
 #control {
     margin: auto;
-    width: 12vw;
+    width: 10vw;
 }
 
 #control ul {
@@ -122,6 +122,7 @@
     width: 10vw;
     height: 5vw;
     font-size: 1.7vw;
+    outline: none;
 }
 
 #speed-up, #speed-down, #pause {
@@ -129,6 +130,7 @@
     border-radius: 5px;
     font-size: 2vw;
     margin: auto;
+    outline: none;
 }
 
 #footer {
